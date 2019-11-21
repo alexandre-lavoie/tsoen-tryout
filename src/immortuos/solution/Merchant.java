@@ -3,6 +3,7 @@
  *  SCS Concordia 
  */
 package immortuos.solution;
+import immortuos.utils.*;
 
 /**
  * This is an example implementation of Survivor that you can use to

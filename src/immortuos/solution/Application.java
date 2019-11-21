@@ -3,10 +3,14 @@ package immortuos.solution;
 import immortuos.utils.Survivor;
 import immortuos.utils.Event;
 
+import java.util.ArrayList;
+import java.util.List;
 /**
  * The main application for the solution. Write your code here.
  */
 public class Application {
+
+    private List<Survivor> registry = new ArrayList<Survivor>();
     /**
      * Create a new application. You must not change this constructor's
      * signature.
@@ -24,7 +28,13 @@ public class Application {
      * @param type The type of this survivor.
      */
     public void registerSurvivor(Survivor survivor) {
-        // Write your code here.
+     
+        //Add survivor to registry
+        this.registry.add(survivor);
+
+        //Notify Survivor with event registered
+        Event registered = new Event(EventType.REGISTERED,survivor.getLocation());
+        survivor.notify(registered);
 
     }
 
