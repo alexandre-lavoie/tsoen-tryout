@@ -1,7 +1,6 @@
 package immortuos.solution;
 
-import immortuos.utils.Survivor;
-import immortuos.utils.Event;
+import immortuos.utils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +45,33 @@ public class Application {
      */
     public void onEvent(Event event) {
         EventType eventType = EventType.valueOf(event.getType());
-        SurvivorType[] survivorType = getSurvivorTypeByEventType(eventType);
+        List<SurvivorType> survivorTypes = getSurvivorTypeByEventType(eventType);
+
+        for (Survivor survivor : this.registry){
+            SurvivorType survivorType = SurvivorType.valueOf(survivor.getType());
+            if(survivorTypes.contains(survivorType) && getDistance(event.getLocation(), survivor.getLocation()) <= getMaxDistance(EventType.valueOf(event.getType()), survivorType)){
+                switch(eventType){
+                    case ZOMBIE:
+                        Event run = new Event(EventType.RUN.toString(), getRunPosition(event.getLocation(), survivor.getLocation()));
+                        survivor.notify(run);
+                    default:
+                        survivor.notify(event);
+                }
+                
+            }
+        }
         
     }
+
+    public double getDistance(Point from, Point  to){
+        return Math.sqrt(Math.pow((to.getX()-from.getX()),2) + Math.pow((to.getY()-from.getY()),2));
+    }
+
+    public Point getRunPosition(Point from, Point to){
+        return  new Point(to.getX()+(to.getX()-from.getX())/getDistance(from, to), to.getY()+ (to.getY()-from.getY())/getDistance(from, to));
+    }
+
+
 
     /**
      * Gets a list of all survivor types in Survivor Type Enum.
