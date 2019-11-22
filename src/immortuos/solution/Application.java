@@ -44,7 +44,11 @@ public class Application {
      * @param eventLocation The location at which the event occurred.
      */
     public void onEvent(Event event) {
-        // Write your code here.
-        switch(event)
+        switch(EventType.valueOf(event.getType())){
+            case REGISTERED:
+            case WATER:
+            case ZOMBIE:
+            case TRADE:
+        }
     }
 }
