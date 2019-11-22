@@ -1,9 +1,22 @@
 package immortuos.solution;
 
 
-enum EventType{
-    REGISTERED: ,
-    WATER,
-    TRADE,
-    ZOMBIE
+public enum EventType{
+    REGISTERED("registered"),
+    WATER("water"),
+    TRADE("trade"),
+    ZOMBIE("zombie");
+
+    private String event;
+ 
+    EventType(String event) {
+        this.event = event;
+    }
+ 
+    public String getEvent() {
+        return this.event;
+    }
+
+
+
 }

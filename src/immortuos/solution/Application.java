@@ -33,7 +33,7 @@ public class Application {
         this.registry.add(survivor);
 
         //Notify Survivor with event registered
-        Event registered = new Event(EventType.REGISTERED,survivor.getLocation());
+        Event registered = new Event(EventType.REGISTERED.getEvent(),survivor.getLocation());
         survivor.notify(registered);
 
     }
