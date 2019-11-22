@@ -4,7 +4,8 @@ public enum EventType{
     REGISTERED("registered"),
     WATER("water"),
     TRADE("trade"),
-    ZOMBIE("zombie");
+    ZOMBIE("zombie"),
+    RUN("run");
 
     private String event;
  
