@@ -76,4 +76,39 @@ public class Application {
                 return new SurvivorType[]{};
         }
     }
+
+    public int getMaxDistance(EventType eventType, SurvivorType survivorType){
+        switch(eventType){
+            case WATER:
+                switch(survivorType){
+                    default:
+                        return 5;
+                }
+            case TRADE:
+                switch(survivorType){
+                    case CITIZEN:
+                        return 3;
+                    case MERCHANT:
+                        return 6;
+                    default:
+                        return -1;
+                }
+            case ZOMBIE:
+                switch(survivorType){
+                    case CITIZEN:
+                    case MERCHANT:
+                        return 4;
+                    case SOLDIER:
+                        return 7;
+                    default:
+                        return -1;
+                }
+            default:
+                return -1;
+        }
+    }
+
+    public List<Survivor> getSurvivorsByType(SurvivorType[] survivorType){
+        
+    }
 }
