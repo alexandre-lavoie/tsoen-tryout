@@ -10,13 +10,13 @@ import java.util.Arrays;
  */
 public class Application {
 
-    private List<Survivor> registry = new ArrayList<Survivor>();
+    private List<Survivor> registry;
     /**
      * Create a new application. You must not change this constructor's
      * signature.
      */
     public Application() {
-        // You may write code here.
+        this.registry = new ArrayList<Survivor>();
 
     }
 
