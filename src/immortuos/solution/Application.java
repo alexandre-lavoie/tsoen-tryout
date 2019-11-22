@@ -5,6 +5,7 @@ import immortuos.utils.Event;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 /**
  * The main application for the solution. Write your code here.
  */
@@ -44,11 +45,35 @@ public class Application {
      * @param eventLocation The location at which the event occurred.
      */
     public void onEvent(Event event) {
-        switch(EventType.valueOf(event.getType())){
-            case REGISTERED:
+        EventType eventType = EventType.valueOf(event.getType());
+        SurvivorType[] survivorType = getSurvivorTypeByEventType(eventType);
+        
+    }
+
+    /**
+     * Gets a list of all survivor types in Survivor Type Enum.
+     * @return Array of survivor types.
+     */
+    public SurvivorType[] getAllSurvivorTypes(){
+        List<SurvivorType> survivorTypes = Arrays.asList(SurvivorType.values());
+        return (SurvivorType[])survivorTypes.toArray();
+    }
+
+    /**
+     * 
+     * @param eventType
+     * @return
+     */
+    public SurvivorType[] getSurvivorTypeByEventType(EventType eventType){
+        switch(eventType){
             case WATER:
+                return getAllSurvivorTypes();
             case ZOMBIE:
+                return new SurvivorType[]{ SurvivorType.CITIZEN, SurvivorType.MERCHANT, SurvivorType.SOLDIER };
             case TRADE:
+                return new SurvivorType[]{ SurvivorType.CITIZEN, SurvivorType.MERCHANT };
+            default:
+                return new SurvivorType[]{};
         }
     }
 }

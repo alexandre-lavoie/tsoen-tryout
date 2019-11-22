@@ -10,7 +10,7 @@ public enum SurvivorType{
     SurvivorType(String survivor) {
         this.survivor = survivor;
     }
- 
+
     @Override
     public String toString() {
         return this.survivor;
