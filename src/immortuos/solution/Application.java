@@ -54,9 +54,8 @@ public class Application {
      * Gets a list of all survivor types in Survivor Type Enum.
      * @return Array of survivor types.
      */
-    public SurvivorType[] getAllSurvivorTypes(){
-        List<SurvivorType> survivorTypes = Arrays.asList(SurvivorType.values());
-        return (SurvivorType[])survivorTypes.toArray();
+    public List<SurvivorType> getAllSurvivorTypes(){
+        return Arrays.asList(SurvivorType.values());
     }
 
     /**
@@ -64,16 +63,16 @@ public class Application {
      * @param eventType
      * @return
      */
-    public SurvivorType[] getSurvivorTypeByEventType(EventType eventType){
+    public List<SurvivorType> getSurvivorTypeByEventType(EventType eventType){
         switch(eventType){
             case WATER:
                 return getAllSurvivorTypes();
             case ZOMBIE:
-                return new SurvivorType[]{ SurvivorType.CITIZEN, SurvivorType.MERCHANT, SurvivorType.SOLDIER };
+                return Arrays.asList(SurvivorType.CITIZEN, SurvivorType.MERCHANT, SurvivorType.SOLDIER);
             case TRADE:
-                return new SurvivorType[]{ SurvivorType.CITIZEN, SurvivorType.MERCHANT };
+                return Arrays.asList(SurvivorType.CITIZEN, SurvivorType.MERCHANT);
             default:
-                return new SurvivorType[]{};
+                return new ArrayList<SurvivorType>();
         }
     }
 
@@ -106,9 +105,5 @@ public class Application {
             default:
                 return -1;
         }
-    }
-
-    public List<Survivor> getSurvivorsByType(SurvivorType[] survivorType){
-        
     }
 }
