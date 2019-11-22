@@ -1,9 +1,9 @@
 package immortuos.solution;
 
 public enum SurvivorType{
-    MERCHANT("Merchant"),
-    CITIZEN("Citizen"),
-    SOLDIER("Solder");
+    MERCHANT("merchant"),
+    CITIZEN("citizen"),
+    SOLDIER("solder");
 
     private String survivor;
  

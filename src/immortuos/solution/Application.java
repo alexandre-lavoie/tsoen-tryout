@@ -1,13 +1,9 @@
 package immortuos.solution;
 
 import immortuos.utils.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
-/**
- * The main application for the solution. Write your code here.
- */
+
 public class Application {
 
     private List<Survivor> registry;
@@ -17,7 +13,6 @@ public class Application {
      */
     public Application() {
         this.registry = new ArrayList<Survivor>();
-
     }
 
     /**
@@ -32,7 +27,7 @@ public class Application {
         this.registry.add(survivor);
 
         //Notify Survivor with event registered
-        Event registered = new Event(EventType.REGISTERED.toString(),survivor.getLocation());
+        Event registered = new Event(EventType.REGISTERED.toString(), survivor.getLocation());
         survivor.notify(registered);
     }
 
@@ -44,62 +39,65 @@ public class Application {
      * @param eventLocation The location at which the event occurred.
      */
     public void onEvent(Event event) {
-        EventType eventType = EventType.valueOf(event.getType());
-        List<SurvivorType> survivorTypes = getSurvivorTypeByEventType(eventType);
+        // Get event enum
+        EventType eventType = EventType.valueOf(event.getType().toUpperCase());
 
+        // For every registered survivor
         for (Survivor survivor : this.registry){
-            SurvivorType survivorType = SurvivorType.valueOf(survivor.getType());
-            if(survivorTypes.contains(survivorType) && getDistance(event.getLocation(), survivor.getLocation()) <= getMaxDistance(EventType.valueOf(event.getType()), survivorType)){
+            // Get survivor type
+            SurvivorType survivorType = SurvivorType.valueOf(survivor.getType().toUpperCase());
+            
+            // If the distance to the event is less than the max distance to listen for the event.
+            // We get -1 when the event and survivor type don't match, therefore skips!
+            if(getDistance(event.getLocation(), survivor.getLocation()) <= getMaxDistance(eventType, survivorType)){
                 switch(eventType){
                     case ZOMBIE:
-                        Event run = new Event(EventType.RUN.toString(), getRunPosition(event.getLocation(), survivor.getLocation()));
-                        survivor.notify(run);
+                        switch(survivorType){
+                            case CITIZEN:
+                                // Run condition for citizen
+                                Event run = new Event(EventType.RUN.toString(), getRunPosition(event.getLocation(), survivor.getLocation()));
+                                survivor.notify(run);
+                                break;
+                            default:
+                                survivor.notify(event);
+                                break;
+                        }
+                        break;
                     default:
                         survivor.notify(event);
                 }
-                
             }
-        }
-        
+        } 
     }
 
-    public double getDistance(Point from, Point  to){
+    /**
+     * Get distance between two points.
+     * @param from First point.
+     * @param to Second point.
+     * @return Distance between points.
+     */
+    public static double getDistance(Point from, Point to){
         return Math.sqrt(Math.pow((to.getX()-from.getX()),2) + Math.pow((to.getY()-from.getY()),2));
     }
 
-    public Point getRunPosition(Point from, Point to){
-        return  new Point(to.getX()+(to.getX()-from.getX())/getDistance(from, to), to.getY()+ (to.getY()-from.getY())/getDistance(from, to));
-    }
-
-
-
     /**
-     * Gets a list of all survivor types in Survivor Type Enum.
-     * @return Array of survivor types.
+     * Get next position for to to run from.
+     * @param from Position of zombie.
+     * @param to Position of player.
+     * @return New player position.
      */
-    public List<SurvivorType> getAllSurvivorTypes(){
-        return Arrays.asList(SurvivorType.values());
+    public static Point getRunPosition(Point from, Point to){
+        return new Point(to.getX()+(to.getX()-from.getX())/getDistance(from, to), to.getY()+ (to.getY()-from.getY())/getDistance(from, to));
     }
 
     /**
-     * 
-     * @param eventType
-     * @return
+     * Get the distance according to the event and survivor type.
+     * -1 if not possible option.
+     * @param eventType Type of event being called.
+     * @param survivorType Type of survivor being called.
+     * @return Max distance to notify. -1 if there is no max distance.
      */
-    public List<SurvivorType> getSurvivorTypeByEventType(EventType eventType){
-        switch(eventType){
-            case WATER:
-                return getAllSurvivorTypes();
-            case ZOMBIE:
-                return Arrays.asList(SurvivorType.CITIZEN, SurvivorType.MERCHANT, SurvivorType.SOLDIER);
-            case TRADE:
-                return Arrays.asList(SurvivorType.CITIZEN, SurvivorType.MERCHANT);
-            default:
-                return new ArrayList<SurvivorType>();
-        }
-    }
-
-    public int getMaxDistance(EventType eventType, SurvivorType survivorType){
+    public static int getMaxDistance(EventType eventType, SurvivorType survivorType){
         switch(eventType){
             case WATER:
                 switch(survivorType){
