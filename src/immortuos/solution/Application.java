@@ -28,14 +28,12 @@ public class Application {
      * @param type The type of this survivor.
      */
     public void registerSurvivor(Survivor survivor) {
-     
         //Add survivor to registry
         this.registry.add(survivor);
 
         //Notify Survivor with event registered
-        Event registered = new Event(EventType.REGISTERED.getEvent(),survivor.getLocation());
+        Event registered = new Event(EventType.REGISTERED.toString(),survivor.getLocation());
         survivor.notify(registered);
-
     }
 
     /**
@@ -47,6 +45,6 @@ public class Application {
      */
     public void onEvent(Event event) {
         // Write your code here.
-
+        switch(event)
     }
 }

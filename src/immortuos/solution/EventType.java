@@ -1,6 +1,5 @@
 package immortuos.solution;
 
-
 public enum EventType{
     REGISTERED("registered"),
     WATER("water"),
@@ -13,10 +12,8 @@ public enum EventType{
         this.event = event;
     }
  
-    public String getEvent() {
+    @Override
+    public String toString() {
         return this.event;
     }
-
-
-
 }

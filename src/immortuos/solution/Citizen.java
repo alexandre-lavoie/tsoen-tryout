@@ -6,17 +6,16 @@ package immortuos.solution;
 import immortuos.utils.*;
 
 /**
- * This is an example implementation of Survivor that you can use to
- * manually test your code.
- * @author Felix
+ * 
+ * @author Alex
  */
 public class Citizen implements Survivor {
     private final Point location;
     private final String type;
-    
+
     public Citizen(String type, Point location) {
         this.location = location;
-        this.type = type;
+        this.type = SurvivorType.CITIZEN.toString();
     }
     
     @Override

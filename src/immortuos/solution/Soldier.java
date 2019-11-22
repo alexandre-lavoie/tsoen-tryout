@@ -6,9 +6,8 @@ package immortuos.solution;
 import immortuos.utils.*;
 
 /**
- * This is an example implementation of Survivor that you can use to
- * manually test your code.
- * @author Felix
+ * 
+ * @author Alex
  */
 public class Soldier implements Survivor {
     private final Point location;
